@@ -1,0 +1,64 @@
+using System;
+
+public class Display
+{
+    private const int Red = 5;
+    private const int Kolona = 3;
+    private const int DuljinaRed = 22; //изглежда по-правилно от 30, реално
+    private const char NachaloIKrai = '|';
+    private const char Znak = '-';
+    private const char Razdelitel = '|';
+    private const string Predi = "- ";
+    private const string Sled = " -";
+
+    private string[,] array = new string[Red, Kolona];
+
+    private string GeneriraneNaRed()
+    {
+        return NachaloIKrai + new string(Znak, DuljinaRed - 2) + NachaloIKrai;
+    }
+
+    private string StoinostNaKletka(string value)
+    {
+        return Predi + value + Sled;
+    }
+
+    private string StoinostNaRed(string[] values)
+    {
+        string red = NachaloIKrai.ToString();
+        foreach (var value in values)
+        {
+            red += StoinostNaKletka(value) + Razdelitel;
+        }
+        red = red.TrimEnd(Razdelitel);
+        red += NachaloIKrai.ToString();
+        return red;
+    }
+
+    public void Rezultat()
+    {
+        Console.WriteLine(GeneriraneNaRed());
+        for (int i = 1; i <= Red * Kolona; i += Kolona)
+        {
+            string[] Stoinosti = { i.ToString(), (i + 1).ToString(), (i + 2).ToString()};
+            Console.WriteLine(StoinostNaRed(Stoinosti));
+            Console.WriteLine(GeneriraneNaRed());
+        }
+    }
+
+    public void Run()
+    {
+        Rezultat();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Display DisplayConsole = new Display();
+        DisplayConsole.Run();
+		Console.WriteLine("|- {0} -|", 16);
+		Console.WriteLine("--------");
+    }
+}
